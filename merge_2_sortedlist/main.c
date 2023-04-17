@@ -1,81 +1,78 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h> 
+#include <stdlib.h> 
 
-struct ListNode {
-    int val;
-    struct ListNode *next;
-};
+/**/ 
+struct ListNode{ 
+    int infor; 
+    struct ListNode* link; 
+}; 
 
-struct ListNode* newListNode(int data){
-    struct ListNode* result_node = (struct ListNode*)malloc(sizeof(struct ListNode));
-    if(result_node == NULL){
-        printf("\n @frk-debug(newListNode): Mem allocation failed.");
-        return NULL;
-    }
-    result_node->val  = data;
-    result_node->next = NULL;
-    return result_node;
-}
+/**/ 
+struct ListNode* newListNode(int data){ 
+    struct ListNode* head_result = (struct ListNode*)malloc(sizeof(struct ListNode)); 
+    head_result->infor  = data; 
+    head_result->link = NULL; 
+    return head_result; 
+} 
 
-void printNode(struct ListNode* list){
-    printf("\n --------------------------------");
-    while(list != NULL){
-        printf("\n List data: [%d]", list->val);
-        list = list->next;
-    };
-}
+/**/ 
+void printListNode(struct ListNode* list){ 
+    printf("\n -------------------------------------");     
+    while(list != NULL){ 
+        printf("\n Linked List member: [%d]", list->infor); 
+        list = list->link; 
+    }; 
+    return; 
+} 
 
-struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
+/**/ 
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){ 
+    struct ListNode* head_result = newListNode(0); 
+    struct ListNode* head_cur    = head_result;  
+    int i = 0; 
 
-    struct ListNode* result_node = newListNode(0);
-    struct ListNode* current_node = result_node;
-    if(result_node == NULL){
-        printf("\n @frk-debug(mergeTwoLists): Mem allocation failed.");
-        return NULL;
-    }
+    while( (list1 != NULL) && (list2!=NULL) ){ 
+        printf("\n@frk-debug: iter[%d]", i); 
+        if (list1->infor < list2->infor){ 
+            printf("\n@frk-debug: iter[%d], list1->infor < list2->infor", i); 
+            head_cur->link = newListNode(list1->infor); 
+            list1 = list1->link; 
+        } else { 
+            printf("\n@frk-debug: iter[%d], list1->infor >= list2->infor", i); 
+            head_cur->link = newListNode(list2->infor); 
+            list2 = list2->link; 
+        } 
+        i++; 
+        head_cur = head_cur->link; 
+    }; 
+    head_cur->link = (list1 == NULL) ? (list2) : (list1);     
+    return head_result->link; 
+} 
+ 
+/**/ 
+int main() 
+{ 
+    struct ListNode* head_a = NULL; 
+    struct ListNode* head_b = NULL; 
+    struct ListNode* head_j = NULL; 
+     
+    head_a             = newListNode(1); 
+    head_a->link       = newListNode(5); 
+    head_a->link->link = newListNode(6); 
 
-    int i = 0;
-    while((list1 != NULL) && (list2 != NULL)){
-        printf("\n@frk-debug: iter = [%d]", i);
-        if(list1->val < list2->val){
-            printf("\n@frk-debug: iter-list1 = [%d]", i);
-            current_node->next = newListNode(list1->val);
-            list1 = list1->next;
-        } else {
-            printf("\n@frk-debug: iter-list2 = [%d]", i);
-            current_node->next = newListNode(list2->val);
-            list2 = list2->next;
-        }
-        current_node = current_node->next;
-        i++;
-    };
-    current_node->next = (list1 != NULL) ? list1 : list2;
+    head_b                               = newListNode(2); 
+    head_b->link                         = newListNode(3); 
+    head_b->link->link                   = newListNode(4); 
+    head_b->link->link->link             = newListNode(6); 
+    head_b->link->link->link->link       = newListNode(7); 
+    head_b->link->link->link->link->link = newListNode(8); 
 
-    return result_node->next;
-}
+    head_j = mergeTwoLists(head_a, head_b); 
+    printListNode(head_a); 
+    printListNode(head_b); 
+    printListNode(head_j); 
 
-int main()
-{
-    struct ListNode* a1 = NULL;
-    struct ListNode* a2 = NULL;
-    struct ListNode* a3 = NULL;
-
-    a1                     = newListNode(1);
-    a1->next               = newListNode(2);
-    a1->next->next         = newListNode(4);
-    a1->next->next->next   = newListNode(5);
-
-    a2               = newListNode(0);
-    a2->next         = newListNode(3);
-    a2->next->next   = newListNode(5);
-    
-    a3 = mergeTwoLists(a1,a2);
-
-    printNode(a1);
-    printNode(a2);
-    printNode(a3);
-
-    printf("\n ----------------------------------------");
-    printf("\n @Frank: PASS-TEST.\n");
-    return 0;
-}
+    printf("\n-----------------------------------------");  
+    printf("\nPASS-TEST\n");   
+    return 0; 
+} 
