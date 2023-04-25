@@ -1,7 +1,18 @@
+#if 1
 #include <stdio.h>
 
+int removeElement(int* nums, int numsSize, int val);
+
+int main(){
+    int array[7]={1,2,3,4,5,5,5};
+    int numsSize = 7;
+    int val = 5;
+    removeElement(array,numsSize,val);
+    return 0;
+}
+#endif 
+
 int removeElement(int* nums, int numsSize, int val){
-    /*result*/ 
     int result = 0;
 
     if (numsSize == 0){
@@ -40,12 +51,4 @@ int removeElement(int* nums, int numsSize, int val){
     /*Result stores here*/
     printf("\n@frk-dbg: result=[%d]", result);
     return result;
-}
-
-int main(){
-    int array[7]={1,2,3,4,5,5,5};
-    int numsSize = 7;
-    int val = 5;
-    removeElement(array,numsSize,val);
-    return 0;
 }

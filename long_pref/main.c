@@ -1,58 +1,9 @@
+#if 1
 #include<stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-#if 0
-char * longestCommonPrefix(char ** strs, int strsSize){
-    char* result = (char*) malloc(sizeof(char)*(strlen(strs[0])));
-    strcpy(result, strs[0]);
-    printf("\nfrk-debug: %s - %ld", result, strlen(result));
-    for (int i =0; i<strlen(result); i++){
-        int j = 0;
-        while((result[j] != '\0') && (strs[i][j] != '\0') && (result[j] == strs[i][j])){
-            j++;
-        }
-        result[j] ='\0';
-        if (j == 0){
-            return "";
-        }
-    }
-    return result;
-}
-#endif
-
-char * longestCommonPrefix(char ** strs, int strsSize){
-    if (strsSize == 0) {
-        // handle empty input
-        char* result = (char*) malloc(sizeof(char));
-        result[0] = '\0';
-        return result;
-    }
-
-    char* result = (char*) malloc(sizeof(char) * (strlen(strs[0]) + 1));
-    strcpy(result, strs[0]);
-    printf("\nfrk-debug: %s - %ld", result, strlen(result));
-
-    for (int i = 1; i < strsSize; i++) 
-    {
-        int j = 0;
-        while ((result[j] != '\0') && (strs[i][j] != '\0') && (result[j] == strs[i][j])) 
-        {
-            j++;
-        }
-        result[j] = '\0';
-        if (j == 0) 
-        {
-            // handle empty prefix
-            free(result);
-            char* empty_result = (char*) malloc(sizeof(char));
-            empty_result[0] = '\0';
-            return empty_result;
-        }
-    }
-
-    return result;
-}
+char * longestCommonPrefix(char ** strs, int strsSize);
 
 int main()
 {
@@ -87,4 +38,38 @@ int main()
     printf("\n---------------------------------------------"); 
     printf("\nPASS-TEST\n"); 
     return 0; 
+}
+#endif
+
+char * longestCommonPrefix(char ** strs, int strsSize){
+    if (strsSize == 0) {
+        // handle empty input
+        char* result = (char*) malloc(sizeof(char));
+        result[0] = '\0';
+        return result;
+    }
+
+    char* result = (char*) malloc(sizeof(char) * (strlen(strs[0]) + 1));
+    strcpy(result, strs[0]);
+    // printf("\nfrk-debug: %s - %ld", result, strlen(result));
+
+    for (int i = 1; i < strsSize; i++) 
+    {
+        int j = 0;
+        while ((result[j] != '\0') && (strs[i][j] != '\0') && (result[j] == strs[i][j])) 
+        {
+            j++;
+        }
+        result[j] = '\0';
+        if (j == 0) 
+        {
+            // handle empty prefix
+            free(result);
+            char* empty_result = (char*) malloc(sizeof(char));
+            empty_result[0] = '\0';
+            return empty_result;
+        }
+    }
+
+    return result;
 }

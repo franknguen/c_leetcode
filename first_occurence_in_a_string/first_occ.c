@@ -1,5 +1,24 @@
+#if 1
 #include <stdio.h>
 #include <string.h>
+
+int strStr(char * haystack, char * needle);
+
+int main()
+{
+    char *str1 = "leetcode!";
+    char *str2 = "leet";
+    int leng1  = strlen(str1);
+    int leng2  = strlen(str2);
+
+    printf("\n result=%d",strStr(str1, str2));
+
+    printf("\n---------------------------");
+    printf("\nPASS-TEST");
+
+    return 0;
+}
+#endif
 
 int strStr(char * haystack, char * needle){
     int result = -1;
@@ -35,19 +54,4 @@ int strStr(char * haystack, char * needle){
         }
     }
     return result;
-}
-
-int main()
-{
-    char *str1 = "leetcode!";
-    char *str2 = "leet";
-    int leng1  = strlen(str1);
-    int leng2  = strlen(str2);
-
-    printf("\n result=%d",strStr(str1, str2));
-
-    printf("\n---------------------------");
-    printf("\nPASS-TEST");
-
-    return 0;
 }

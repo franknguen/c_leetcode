@@ -1,3 +1,4 @@
+#if 1
 #include <stdio.h> 
 #include <stdlib.h> 
 
@@ -6,14 +7,6 @@
      int val;
      struct ListNode *next;
  };
-
-/**/ 
-struct ListNode* newListNode(int data){ 
-    struct ListNode* head_result = (struct ListNode*)malloc(sizeof(struct ListNode)); 
-    head_result->val  = data; 
-    head_result->next = NULL; 
-    return head_result; 
-} 
 
 /**/ 
 void printListNode(struct ListNode* list){ 
@@ -26,28 +19,9 @@ void printListNode(struct ListNode* list){
 } 
 
 /**/ 
-struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){ 
-    struct ListNode* head_result = newListNode(0); 
-    struct ListNode* head_cur    = head_result;  
-    int i = 0; 
-
-    while( (list1 != NULL) && (list2!=NULL) ){ 
-        printf("\n@frk-debug: iter[%d]", i); 
-        if (list1->val < list2->val){ 
-            printf("\n@frk-debug: iter[%d], list1->val < list2->val", i); 
-            head_cur->next = newListNode(list1->val); 
-            list1 = list1->next; 
-        } else { 
-            printf("\n@frk-debug: iter[%d], list1->val >= list2->val", i); 
-            head_cur->next = newListNode(list2->val); 
-            list2 = list2->next; 
-        } 
-        i++; 
-        head_cur = head_cur->next; 
-    }; 
-    head_cur->next = (list1 == NULL) ? (list2) : (list1);     
-    return head_result->next; 
-} 
+struct ListNode* newListNode(int data);
+/**/ 
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2); 
  
 /**/ 
 int main() 
@@ -75,4 +49,38 @@ int main()
     printf("\n-----------------------------------------");  
     printf("\nPASS-TEST\n");   
     return 0; 
+} 
+
+#endif
+
+/**/ 
+struct ListNode* newListNode(int data){ 
+    struct ListNode* head_result = (struct ListNode*)malloc(sizeof(struct ListNode)); 
+    head_result->val  = data; 
+    head_result->next = NULL; 
+    return head_result; 
+} 
+
+/**/ 
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){ 
+    struct ListNode* head_result = newListNode(0); 
+    struct ListNode* head_cur    = head_result;  
+    int i = 0; 
+
+    while( (list1!=NULL) && (list2!=NULL) ){ 
+        printf("\n@frk-debug: iter[%d]", i); 
+        if (list1->val < list2->val){ 
+            printf("\n@frk-debug: iter[%d], list1->val < list2->val", i); 
+            head_cur->next = newListNode(list1->val); 
+            list1 = list1->next; 
+        } else { 
+            printf("\n@frk-debug: iter[%d], list1->val >= list2->val", i); 
+            head_cur->next = newListNode(list2->val); 
+            list2 = list2->next; 
+        } 
+        i++; 
+        head_cur = head_cur->next; 
+    }; 
+    head_cur->next = (list1 == NULL) ? (list2) : (list1);     
+    return head_result->next; 
 } 
