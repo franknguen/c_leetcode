@@ -3,8 +3,9 @@
     LeetCode 
     Purpose: #94, binary tree inorder traversal
     @author: Frank Nguen
-    @date: 0x-05-2023
+    @date:   0x-05-2023
 */
+/***********************************************************************/
 #if 1
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,34 +20,40 @@ struct TreeNode {
     struct TreeNode *right;
 };
 
-int* inorderTraversal(struct TreeNode* root, int* returnSize);
-//void inorderTraversal(struct TreeNode* root);
-void printTree(struct TreeNode* root, int level);
+/**
+ * Funs with TreeNode data structure.
+ *
+*/
 struct TreeNode* createNode(int value);
 void insertNode(struct TreeNode* root, int value);
+
+void printTree(struct TreeNode* root, int level);
+
+int* inorderTraversal(struct TreeNode* root, int* returnSize);
+//void inorderTraversal(struct TreeNode* root);
 
 /***********************************************************************/
 /**
  * main: -
  *
- * 
+ * return: 0
+ *
+ * to test case
  */
 int main(){
-
     struct TreeNode* root = createNode(2);
-
     insertNode(root, 1);
     insertNode(root, 3);
-    // insertNode(root, 3);
-    // insertNode(root, 5);
-    // insertNode(root, 6);
-    // insertNode(root, 7);
-    // insertNode(root, 8);
-    // insertNode(root, 9);
-    // insertNode(root, 10);
-    // insertNode(root, 11);
-    // insertNode(root, 12);
-    // insertNode(root, 13);
+    insertNode(root, 3);
+    insertNode(root, 5);
+    insertNode(root, 6);
+    insertNode(root, 7);
+    insertNode(root, 8);
+    insertNode(root, 9);
+    insertNode(root, 10);
+    insertNode(root, 11);
+    insertNode(root, 12);
+    insertNode(root, 13);
     printf("\n ---------------------------- \n");
     printTree(root, 0);
     printf("\n ---------------------------- \n");
@@ -59,7 +66,7 @@ int main(){
     for(int i=0; i<returnSize; i++){
         printf("\n %d", result[i]);
     }
-
+    
     printf("\n ---------------------------- \n");
     printf("\n PASS-TEST \n");
     return 0;
@@ -72,8 +79,8 @@ int main(){
  *  
  * return:
  *
- * create a new node by allocating memory for a TreeNode object 
- * and initializing its members. For example:
+ * to print tree 
+ * 
  */
 void printTree(struct TreeNode* root, int level) {
     if (root != NULL) {
@@ -87,17 +94,20 @@ void printTree(struct TreeNode* root, int level) {
 }
 
 /**
- * createNode: -
+ * createNode: - (or newNode)
  * @value
  *  
  * return:
  *
- * create a new node by allocating memory for a TreeNode object 
- * and initializing its members. For example:
+ * to create or new node
+ * 
  */
 struct TreeNode* createNode(int value) {
-    struct TreeNode* node = malloc(sizeof(struct TreeNode));
+    struct TreeNode* node 
+        = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+
     node->val = value;
+
     node->left = NULL;
     node->right = NULL;
     return node;
@@ -109,8 +119,8 @@ struct TreeNode* createNode(int value) {
  *  
  * return:
  *
- * create a new node by allocating memory for a TreeNode object 
- * and initializing its members. For example:
+ * to insert node ... 
+ * 
  */
 void insertNode(struct TreeNode* root, int value) {
     if (root == NULL) {
@@ -132,26 +142,8 @@ void insertNode(struct TreeNode* root, int value) {
     }
 }
 
-/**
- * searchNode: -
- * @value
- *  
- * return:
- *
- * create a new node by allocating memory for a TreeNode object 
- * and initializing its members. For example:
- */
-struct TreeNode* searchNode(struct TreeNode* root, int value) {
-    if (root == NULL || root->val == value) {
-        return root;
-    }
-    if (value < root->val) {
-        return searchNode(root->left, value);
-    } else {
-        return searchNode(root->right, value);
-    }
-}
 #endif
+
 /**
  * inorderTraversal: -
  * @value
@@ -170,8 +162,16 @@ struct TreeNode* searchNode(struct TreeNode* root, int value) {
 //         inorderTraversal(root->right);
 //     }
 // }
-
 #if 1
+/**
+ * inorderTraversalHelper: -
+ * @value
+ *  
+ * return:
+ *
+ * to help save value on recursive ... 
+ * 
+ */
 void inorderTraversalHelper(struct TreeNode* root, int* result, int* idx) {
     if (root == NULL) {
         return;
